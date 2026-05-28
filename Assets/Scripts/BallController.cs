@@ -22,6 +22,10 @@ public class BallController : MonoBehaviour
     private float _currentSpeed;
     private bool _isAlive = false;
 
+    [Header("Scoring")]
+    [Tooltip("Assign the Layer that your circle boundary GameObject sits on.")]
+    public LayerMask circleBoundaryLayer;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -61,17 +65,20 @@ public class BallController : MonoBehaviour
     {
         if (!_isAlive) return;
 
-        // 1. Get the direction the ball is already bouncing toward via physics reflection
+        // ── Score: only when touching the circle boundary layer ──────────────
+        if (((1 << collision.gameObject.layer) & circleBoundaryLayer) != 0)
+        {
+            ScoreManager.Instance?.AddPoint();
+        }
+
+        // ── Physics: speed bump on every bounce ──────────────────────────────
         Vector2 reflectDirection = _rb.linearVelocity.normalized;
 
-        // 2. Safely bump the speed up slightly
         _currentSpeed += speedIncreasePerBounce;
         _currentSpeed = Mathf.Clamp(_currentSpeed, initialSpeed, maxSpeed);
 
-        // 3. Re-assign the velocity with the new speed
         _rb.linearVelocity = reflectDirection * _currentSpeed;
     }
-
     public void FreezeBall()
     {
         _isAlive = false;
