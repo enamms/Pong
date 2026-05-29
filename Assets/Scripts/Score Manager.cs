@@ -3,8 +3,7 @@ using TMPro;
 
 /// <summary>
 /// Manages the current score and all-time high score.
-/// Attach this to a persistent GameObject in your scene.
-/// The high score is saved via PlayerPrefs and persists between sessions.
+/// Attach this to a GameObject in your game scene.
 /// </summary>
 public class ScoreManager : MonoBehaviour
 {
@@ -24,14 +23,14 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton setup — one ScoreManager lives for the lifetime of the game
+        // Simple Singleton setup for the scene. 
+        // We removed DontDestroyOnLoad so a fresh manager takes over when the scene reloads.
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         // Load the saved high score on startup
         _highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
@@ -39,6 +38,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        // Ensure score starts at 0 on scene load/reload
+        _currentScore = 0; 
         RefreshUI();
     }
 
@@ -61,7 +62,6 @@ public class ScoreManager : MonoBehaviour
 
     /// <summary>
     /// Resets the current score to zero (e.g. on game over / restart).
-    /// The high score is never reset here — it is permanent.
     /// </summary>
     public void ResetScore()
     {
@@ -71,7 +71,6 @@ public class ScoreManager : MonoBehaviour
 
     /// <summary>
     /// Wipes the saved high score from disk and resets both values.
-    /// Hook this up to a "Clear Data" button in your settings menu if needed.
     /// </summary>
     public void ClearHighScore()
     {
