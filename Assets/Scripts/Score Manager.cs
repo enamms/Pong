@@ -16,6 +16,10 @@ public class ScoreManager : MonoBehaviour
     [Tooltip("TextMeshPro label that displays the all-time high score.")]
     public TextMeshProUGUI highScoreText;
 
+    [Header("Background")]
+    [Tooltip("Assign the BackgroundManager so it receives score updates.")]
+    public BackgroundManager backgroundColorController;
+
     private const string HIGH_SCORE_KEY = "HighScore";
 
     private int _currentScore = 0;
@@ -23,8 +27,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        // Simple Singleton setup for the scene. 
-        // We removed DontDestroyOnLoad so a fresh manager takes over when the scene reloads.
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -32,15 +34,14 @@ public class ScoreManager : MonoBehaviour
         }
         Instance = this;
 
-        // Load the saved high score on startup
         _highScore = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
     }
 
     private void Start()
     {
-        // Ensure score starts at 0 on scene load/reload
-        _currentScore = 0; 
+        _currentScore = 0;
         RefreshUI();
+        backgroundColorController?.OnScoreChanged(_currentScore);
     }
 
     /// <summary>
@@ -54,10 +55,11 @@ public class ScoreManager : MonoBehaviour
         {
             _highScore = _currentScore;
             PlayerPrefs.SetInt(HIGH_SCORE_KEY, _highScore);
-            PlayerPrefs.Save(); // Flush to disk immediately
+            PlayerPrefs.Save();
         }
 
         RefreshUI();
+        backgroundColorController?.OnScoreChanged(_currentScore);
     }
 
     /// <summary>
@@ -67,6 +69,7 @@ public class ScoreManager : MonoBehaviour
     {
         _currentScore = 0;
         RefreshUI();
+        backgroundColorController?.OnScoreChanged(_currentScore);
     }
 
     /// <summary>
@@ -78,6 +81,7 @@ public class ScoreManager : MonoBehaviour
         _currentScore = 0;
         PlayerPrefs.DeleteKey(HIGH_SCORE_KEY);
         RefreshUI();
+        backgroundColorController?.OnScoreChanged(_currentScore);
     }
 
     private void RefreshUI()
