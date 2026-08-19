@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eda657a038b3114ca568c250e375e7b, type: 3}
+  m_Name: Smug
+  m_EditorClassIdentifier: 
+  iconId: Smug
+  displayName: Smug
+  sprite: {fileID: 7124022817951173412, guid: 65ee088e382049644a7cc813fe1be123, type: 3}
+  unlockedByDefault: 0
+  requiredScore: 35

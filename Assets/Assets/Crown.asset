@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eda657a038b3114ca568c250e375e7b, type: 3}
+  m_Name: Crown
+  m_EditorClassIdentifier: 
+  iconId: Crown
+  displayName: Crown
+  sprite: {fileID: -8222406987496834216, guid: c10774b013bd3ea4583d84c76a8081e4, type: 3}
+  unlockedByDefault: 0
+  requiredScore: 100

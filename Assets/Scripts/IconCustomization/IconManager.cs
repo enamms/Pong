@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class IconManager : MonoBehaviour
 {
+    // public Animator unlockUIAnimator;
     public static IconManager Instance { get; private set; }
 
     [Tooltip("Every icon in the game, including the default one. Order here defines menu order.")]
@@ -86,6 +87,7 @@ public class IconManager : MonoBehaviour
 
         unlockedIds.Add(iconId);
         SaveProgress();
+        // unlockUIAnimator.SetTrigger("unlock");
         OnIconUnlocked?.Invoke(icon);
     }
 
