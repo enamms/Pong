@@ -88,6 +88,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
             scoreText.text = $"Score: {_currentScore}";
+            IconManager.Instance.CheckScoreAchievements(_currentScore);
 
         if (highScoreText != null)
             highScoreText.text = $"Best: {_highScore}";
